@@ -1,15 +1,18 @@
 import React from "react";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { MdDeleteForever } from "react-icons/md";
+import { removeTodo } from '../Features/ToDo/TodoSlice'
 function TodoList() {
+    const dispatch = useDispatch()
     const todos = useSelector((state) => state.todos);
     return (
         <div className="flex justify-center flex-col items-center ">
             {todos.map((item) => (
-                <div className="text-center " key={item.id}>
-                    <h1 className="bg-gray-800 rounded border border-gray-700 outline-none text-gray-200 p-4 min-w-80">
+                <div className="text-center flex " key={item.id}>
+                    <div className="bg-gray-800 rounded border border-gray-700 outline-none text-gray-200 p-4 min-w-80">
                         {item.text}
-                    </h1>
+                    </div>
+                    <button className="text-2xl text-red-700" onClick={() => dispatch(removeTodo(item.id))}><MdDeleteForever /></button>
                 </div>
             ))}
         </div>
